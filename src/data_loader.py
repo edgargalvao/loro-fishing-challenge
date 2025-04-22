@@ -1,4 +1,3 @@
-# 📁 1. Carregamento e fusão dos dados
 import pandas as pd
 
 def load_data(product_path, specs_path):
