@@ -23,7 +23,7 @@ Este repositório implementa um sistema leve de **perguntas e respostas (Q&A)** 
 
 ### `'sklearn.neighbors-NearestNeighbors'` com métrica cosseno
 - Implementação simples e eficaz para projetos pequenos com poucos documentos
-### Resposta com pipeline da `'Hugging Face'`
+### Resposta com modelo `'deepset/roberta-base-squad2'`
 - Passa a pergunta e o documento recuperado para o modelo `'deepset/roberta-base-squad2'` via o pipeline da `'Hugging Face'`.
 - Retorna a resposta extraída do trecho do documento.
 
