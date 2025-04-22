@@ -1,49 +1,132 @@
-# 🐟 Loro Pesca Q&A System
+# 🐟 Loro Fishing Challenge - Sistema de Perguntas e Respostas
 
-Sistema de Perguntas e Respostas baseado em documentos para a distribuidora fictícia **Loro Pesca**. Permite consultar informações sobre produtos (preço, disponibilidade, características técnicas) utilizando linguagem natural.
-
----
-
-## Arquitetura da Solução
-
-A arquitetura adotada segue o padrão **Embedding + Similaridade Semântica**:
-
-1. **Pré-processamento**:
-   - Os dados de catálogo e especificações técnicas são fundidos em um único texto por produto.
-   - É feita uma correspondência *fuzzy* entre o nome do produto no catálogo (`product_name`) e o grupo de produto técnico (`product_group`), permitindo ligar, por exemplo, `"CARRETILHA VIZEL AIR 731"` com `"CARRETILHA VIZEL AIR"`.
-
-2. **Geração de Embeddings**:
-   - Utiliza o modelo `all-MiniLM-L6-v2` da `sentence-transformers` para transformar textos em vetores semânticos.
-
-3. **Recuperação**:
-   - Um índice `NearestNeighbors` com métrica de cosseno encontra o documento mais similar à pergunta feita.
-   - O sistema retorna o parágrafo de produto mais relevante como resposta.
+Este repositório implementa um sistema leve de **perguntas e respostas (Q&A)** para o catálogo de produtos da fictícia empresa **Loro Pesca**. Ele utiliza embeddings de linguagem e busca por similaridade para encontrar, entre os documentos, a resposta mais relevante a uma pergunta do usuário.
 
 ---
 
-## Instalação e Execução
+## Visão Geral
 
-### Requisitos
+- Carrega dados tabulares (`CSV`) com produtos e suas especificações técnicas.
+- Usa `SentenceTransformer` para gerar embeddings semânticos.
+- Utiliza `KNN` com distância cosseno para buscar documentos similares.
+- Permite responder perguntas com base no catálogo e nas especificações técnicas.
 
-- Python 3.8+
-- pip
-- pandas
-- scikit-learn
-- sentence-transformers
+---
+## Decisões de Arquitetura
+### `'all-MiniLM-L6-v2'` da `sentence-transformers`
+- Modelo leve, rápido e eficiente para geração de embeddings sem a necessidade de GPUs.
+- Foi considerado modelos como Ollama, porém não consegui gerar uma key da OpenAI.
 
-### Clone o repositório:
+###`'sklearn.neighbors-NearestNeighbors'` com métrica cosseno
+- Implementação simples e eficaz para projetos pequenos com poucos documentos
+
+### Criação de documentos com merge por substring
+- Juntar `'loro_pesca_catalog.csv'` com `'loro_pesca_techinical_docs.csv'` via substring entre `'product_name'` e `'product_group'`.
+- Heurística simples e eficaz para associação entre produtos e especificações.
+
+### Separação modular por responsabilidade
+- Dividir sistema em módulos (`'data_loader'`,`'embedder'`,`'retriever'`,`'qa_engine'` e `'app.py'`)
+### Interface Streamlit
+- Facilitar uso
+
+## Instalação
+
 ```bash
 git clone https://github.com/edgargalvao/loro-fishing-challenge.git
-```
-### Instale as dependências:
-
-```bash
+cd loro-fishing-challenge
 pip install -r requirements.txt
 ```
 
-### Rode o programa com Streamlit
+---
+
+## Estrutura
+
+```
+loro-fishing-challenge/
+│
+├── src/
+│   ├── data_loader.py     		# Carregamento e junção de dados
+│   ├── embedder.py        		# Modelo e geração de embeddings
+│   ├── retriever.py       		# Busca de documentos por similaridade
+│   └── qa_engine.py       		# Classe principal do sistema Q&A
+├── data/
+│   ├── loro_pesca_catalog.csv		# Produtos, preços e disponibiliade	
+│   └── loro_pesca_technical_docs.csv	# Produtos e detalhes técnicos
+└── app.py				# Interface Streamlit
+
+```
+
+---
+
+## Documentação dos Módulos
+
+### `data_loader.py`
+
+```python
+load_data(product_path, specs_path)
+```
+- Lê os CSVs dos produtos e especificações.
+
+```python
+merge_data(products, specs)
+```
+- Cria documentos combinando o nome, código, preço, disponibilidade e especificações técnicas.
+
+---
+
+### `embedder.py`
+
+```python
+get_model()
+```
+- Carrega o modelo `'all-MiniLM-L6-v2'` da `sentence-transformers`.
+
+```python
+embed_texts(texts, model)
+```
+- Converte textos em vetores de embeddings.
+
+---
+
+### `retriever.py`
+
+```python
+Retriever(embeddings, texts)
+```
+- Inicializa a busca com KNN e distância cosseno.
+
+```python
+query(embedding)
+```
+- Retorna o documento mais similar ao embedding da pergunta.
+
+---
+
+### `qa_engine.py`
+
+```python
+QASystem(product_path, specs_path)
+```
+- Carrega os dados, cria os documentos, gera embeddings e indexa tudo.
+
+```python
+answer(question)
+```
+- Retorna a resposta mais relevante com base na pergunta do usuário.
+
+---
+
+## Exemplo de Uso
+
 ```bash
 streamlit run app.py
 ```
 
+---
 
+## Modelo Utilizado
+
+- [`sentence-transformers/all-MiniLM-L6-v2`](https://www.sbert.net/docs/pretrained_models.html)
+  - Leve, eficiente e ideal para tarefas de busca semântica.
+
+---
