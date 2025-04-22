@@ -17,7 +17,7 @@ Este repositório implementa um sistema leve de **perguntas e respostas (Q&A)** 
 - Modelo leve, rápido e eficiente para geração de embeddings sem a necessidade de GPUs.
 - Foi considerado modelos como Ollama, porém não consegui gerar uma key da OpenAI.
 
-###`'sklearn.neighbors-NearestNeighbors'` com métrica cosseno
+### `'sklearn.neighbors-NearestNeighbors'` com métrica cosseno
 - Implementação simples e eficaz para projetos pequenos com poucos documentos
 
 ### Criação de documentos com merge por substring
