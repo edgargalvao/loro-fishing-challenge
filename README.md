@@ -22,7 +22,8 @@ Este repositório implementa um sistema leve de **perguntas e respostas (Q&A)** 
 - Foi considerado modelos como Ollama, porém não consegui gerar uma key da OpenAI.
 
 ### `'sklearn.neighbors-NearestNeighbors'` com métrica cosseno
-- Implementação simples e eficaz para projetos pequenos com poucos documentos
+- Implementação simples e eficaz para projetos pequenos com poucos documentos.
+- 
 ### Resposta com modelo `'deepset/roberta-base-squad2'`
 - Passa a pergunta e o documento recuperado para o modelo `'deepset/roberta-base-squad2'` via o pipeline da `'Hugging Face'`.
 - Retorna a resposta extraída do trecho do documento.
@@ -30,6 +31,7 @@ Este repositório implementa um sistema leve de **perguntas e respostas (Q&A)** 
 
 ### Separação modular por responsabilidade
 - Dividir sistema em módulos (`'data_loader'`,`'embedder'`,`'retriever'`,`'qa_engine'` e `'app.py'`)
+
 ### Interface Streamlit
 - Facilitar uso
 
@@ -132,11 +134,15 @@ streamlit run app.py
 
 - [`sentence-transformers/all-MiniLM-L6-v2`](https://www.sbert.net/docs/pretrained_models.html)
   - Leve, eficiente e ideal para tarefas de busca semântica.
+- [`deepset/roberta-base-squad2`](https://huggingface.co/deepset/roberta-base-squad2)
+  - Treinado para buscar pares de perguntas e respostas.
+
 
 ---
 ## Considerações finais
-- O sistema funciona bem para palavras chaves como: "Disponível", "Indisponível", etc. Pois ele interpreta as palvras dadas no dataset.
+- O sistema funciona bem para perguntas objetivas como: "Qual o preço da Carretilha Vizel Air 201?", "Quantos rolamentos possui Targus 841?", etc. Pois ele ao encontrar a palavra chave da pergunta, pesquisa com base em pares da tabela ("9 rolamentos", Diâmetro 0.30 mm).
 - O sistema não funiciona muito bem para palavras subjetivas como: "Mais caro", "Mais barato".
+- Versões anteriores do sistema, podem retornar uma lista de produtos. Como "Varas disponíveis".
 - A maior dificuldade foi em tentar encontrar o modelo ideal para o projeto. Em Sentence Transformers temos varios modelos, mas após experimentos com modelos muito maiores, com desempenho não muito superior.
 - Outra grande dificuldade foi tentar implementar com OpenAI. Não fui capaz de rodar Ollama, devido a necessidade da chave de acesso.
 ---
