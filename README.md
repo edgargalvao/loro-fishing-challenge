@@ -140,7 +140,7 @@ streamlit run app.py
 
 ---
 ## Considerações finais
-- O sistema funciona bem para perguntas objetivas como: "Qual o preço da Carretilha Vizel Air 201?", "Quantos rolamentos possui Targus 841?", etc. Pois ele ao encontrar a palavra chave da pergunta, pesquisa com base em pares da tabela ("9 rolamentos", Diâmetro 0.30 mm).
+- O sistema funciona bem para perguntas objetivas como: "Qual o preço da Carretilha Vizel Air 201?", "Quantos rolamentos possui Targus 841?", etc. Pois ele ao encontrar a palavra chave da pergunta, pesquisa com base em pares da tabela ("9 rolamentos", "Diâmetro 0.30 mm").
 - O sistema não funiciona muito bem para palavras subjetivas como: "Mais caro", "Mais barato".
 - Versões anteriores do sistema, podem retornar uma lista de produtos. Como "Varas disponíveis".
 - A maior dificuldade foi em tentar encontrar o modelo ideal para o projeto. Em Sentence Transformers temos varios modelos, mas após experimentos com modelos muito maiores, com desempenho não muito superior.
