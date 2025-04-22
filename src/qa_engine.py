@@ -8,7 +8,7 @@ class QASystem:
         self.docs = merge_data(self.products, self.specs)
         self.model = get_model()
         self.embeddings = embed_texts(self.docs, self.model)
-        self.retriever = Retriever(self.embeddings, self.docs)
+        self.retriever = Retriever(self.embeddings, self.docs, top_k = 5)
 
     def answer(self, question):
         query_embedding = self.model.encode(question)
