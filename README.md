@@ -130,3 +130,9 @@ streamlit run app.py
   - Leve, eficiente e ideal para tarefas de busca semântica.
 
 ---
+## Considerações Finais
+- O sistema funciona bem para palavras chaves como: "Disponível", "Indisponível", etc. Pois ele interpreta as palvras dadas no dataset.
+- O sistema não funiciona muito bem para palavras subjetivas como: "Mais caro", "Mais barato".
+- A maior dificuldade foi em tentar encontrar o modelo ideal para o projeto. Em Sentence Transformers temos varios modelos, mas após experimentos com modelos muito maiores, com desempenho não muito superior.
+- Outra grande dificuldade foi tentar implementar com OpenAI. Não fui capaz de rodar Ollama, devido a necessidade da chave de acesso
+---
