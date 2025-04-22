@@ -4,7 +4,7 @@ Sistema de Perguntas e Respostas baseado em documentos para a distribuidora fict
 
 ---
 
-## 🧠 Arquitetura da Solução
+## Arquitetura da Solução
 
 A arquitetura adotada segue o padrão **Embedding + Similaridade Semântica**:
 
@@ -21,14 +21,29 @@ A arquitetura adotada segue o padrão **Embedding + Similaridade Semântica**:
 
 ---
 
-## ⚙️ Instalação e Execução
+## Instalação e Execução
 
-### ✅ Requisitos
+### Requisitos
 
 - Python 3.8+
 - pip
+- pandas
+- scikit-learn
+- sentence-transformers
 
-### 📦 Instale as dependências:
+### Clone o repositório:
+```bash
+git clone https://github.com/edgargalvao/loro-fishing-challenge.git
+```
+### Instale as dependências:
 
 ```bash
 pip install -r requirements.txt
+```
+
+### Rode o programa com Streamlit
+```bash
+streamlit run app.py
+```
+
+
