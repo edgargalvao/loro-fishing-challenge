@@ -13,16 +13,21 @@ Este repositório implementa um sistema leve de **perguntas e respostas (Q&A)** 
 
 ---
 ## Decisões de Arquitetura
+### Criação de documentos com merge por substring
+- Juntar `'loro_pesca_catalog.csv'` com `'loro_pesca_techinical_docs.csv'` via substring entre `'product_name'` e `'product_group'`.
+- Heurística simples e eficaz para associação entre produtos e especificações.
+
 ### `'all-MiniLM-L6-v2'` da `sentence-transformers`
 - Modelo leve, rápido e eficiente para geração de embeddings sem a necessidade de GPUs.
 - Foi considerado modelos como Ollama, porém não consegui gerar uma key da OpenAI.
 
 ### `'sklearn.neighbors-NearestNeighbors'` com métrica cosseno
 - Implementação simples e eficaz para projetos pequenos com poucos documentos
+- 
+### Resposta com LLM
+- Passa a pergunta e o documento recuperado para o modelo `'deepset/roberta-base-squad2'` via o pipeline da `'Hugging Face'`.
+- Retorna a resposta extraída do trecho do documento.
 
-### Criação de documentos com merge por substring
-- Juntar `'loro_pesca_catalog.csv'` com `'loro_pesca_techinical_docs.csv'` via substring entre `'product_name'` e `'product_group'`.
-- Heurística simples e eficaz para associação entre produtos e especificações.
 
 ### Separação modular por responsabilidade
 - Dividir sistema em módulos (`'data_loader'`,`'embedder'`,`'retriever'`,`'qa_engine'` e `'app.py'`)
